@@ -25,7 +25,7 @@ def dodaj_ksiazke(tytul, autor, rok_wydania):
 
 def wypozycz_ksiazke(imie, tytul):
     if imie in uzytkownicy:
-        if len(uzytkownicy[imie].ksiazki_czytelnika) < 3 and (tytul not in  uzytkownicy[imie].ksiazki_czytelnika or uzytkownicy[imie].ksiazki_czytelnika[tytul] == 0) :
+        if sum(list(uzytkownicy[imie].ksiazki_czytelnika))< 3 and (tytul not in  uzytkownicy[imie].ksiazki_czytelnika or uzytkownicy[imie].ksiazki_czytelnika[tytul] == 0) :
             if biblioteka[tytul].ilosc >=1:
                 biblioteka[tytul].ilosc -= 1
                 uzytkownicy[imie].ksiazki_czytelnika[tytul] = 1
