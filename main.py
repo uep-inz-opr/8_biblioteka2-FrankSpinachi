@@ -1,3 +1,6 @@
+import re
+
+
 biblioteka = {}
 uzytkownicy = {}
 class Czytelnik:
@@ -32,10 +35,13 @@ def wypozycz_ksiazke(imie, tytul):
         else:
             return False
     else:
-        uzytkownicy[imie] = Czytelnik(imie)
-        biblioteka[tytul].ilosc -= 1
-        uzytkownicy[imie].ksiazki_czytelnika[tytul] = 1
-        return True 
+        if biblioteka[tytul].ilosc >=1:
+            uzytkownicy[imie] = Czytelnik(imie)
+            biblioteka[tytul].ilosc -= 1
+            uzytkownicy[imie].ksiazki_czytelnika[tytul] = 1
+            return True 
+        else:
+            return False
 
 def oddaj_ksiazke(imie, tytul):
     if uzytkownicy[imie].ksiazki_czytelnika[tytul] == 1:
