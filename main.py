@@ -3,7 +3,7 @@ uzytkownicy = {}
 class Czytelnik:
     def __init__(self, imie):
         self.imie = imie
-        self.ksiazki_czytelnika = []
+        self.ksiazki_czytelnika = {}
 
 class Ksiazka:
     def __init__(self, tytul, autor, rok_wydania):
@@ -22,18 +22,28 @@ def dodaj_ksiazke(tytul, autor, rok_wydania):
 
 def wypozycz_ksiazke(imie, tytul):
     if imie in uzytkownicy:
-        if len(uzytkownicy[imie].ksiazki_czytelnika) < 3:
-            biblioteka[tytul].ilosc -= 1
-            uzytkownicy[imie].ksiazki_czytelnika.append(tytul)
-            return True
+        if len(uzytkownicy[imie].ksiazki_czytelnika) < 3 and tytul not in  uzytkownicy[imie].ksiazki_czytelnika:
+            if biblioteka[tytul].ilosc >=1:
+                biblioteka[tytul].ilosc -= 1
+                uzytkownicy[imie].ksiazki_czytelnika[tytul] = 1
+                return True
+            else:
+                return False
         else:
             return False
     else:
         uzytkownicy[imie] = Czytelnik(imie)
         biblioteka[tytul].ilosc -= 1
-        uzytkownicy[imie].ksiazki_czytelnika.append(tytul)
+        uzytkownicy[imie].ksiazki_czytelnika[tytul] = 1
         return True 
 
+def oddaj_ksiazke(imie, tytul):
+    if uzytkownicy[imie].ksiazki_czytelnika[tytul] == 1:
+        biblioteka[tytul].ilosc += 1
+        uzytkownicy[imie].ksiazki_czytelnika[tytul] = 0
+        return True
+    else:
+        return False
 
 def operacje(komenda, tytul, autor, rok_wydania = None):
     if komenda == 'dodaj':
@@ -41,6 +51,11 @@ def operacje(komenda, tytul, autor, rok_wydania = None):
         
     elif komenda == 'wypozycz':
         return wypozycz_ksiazke(imie=tytul, tytul=autor)
+    
+    elif komenda == 'oddaj':
+        return oddaj_ksiazke(imie=tytul, tytul=autor)
+    
+
     
 
 if __name__ == "__main__":
