@@ -35,13 +35,17 @@ def wypozycz_ksiazke(imie, tytul):
         else:
             return False
     else:
-        if biblioteka[tytul].ilosc >=1:
-            uzytkownicy[imie] = Czytelnik(imie)
-            biblioteka[tytul].ilosc -= 1
-            uzytkownicy[imie].ksiazki_czytelnika[tytul] = 1
-            return True 
+        if bool(biblioteka):
+            if biblioteka[tytul].ilosc >=1:
+                uzytkownicy[imie] = Czytelnik(imie)
+                biblioteka[tytul].ilosc -= 1
+                uzytkownicy[imie].ksiazki_czytelnika[tytul] = 1
+                return True 
+            else:
+                return False
         else:
             return False
+        
 
 def oddaj_ksiazke(imie, tytul):
     if bool(uzytkownicy):
