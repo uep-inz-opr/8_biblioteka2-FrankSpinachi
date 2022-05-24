@@ -44,10 +44,13 @@ def wypozycz_ksiazke(imie, tytul):
             return False
 
 def oddaj_ksiazke(imie, tytul):
-    if uzytkownicy[imie].ksiazki_czytelnika[tytul] == 1:
-        biblioteka[tytul].ilosc += 1
-        uzytkownicy[imie].ksiazki_czytelnika[tytul] = 0
-        return True
+    if uzytkownicy[imie].ksiazki_czytelnika[tytul]:
+        if uzytkownicy[imie].ksiazki_czytelnika[tytul] > 0:
+            biblioteka[tytul].ilosc += 1
+            uzytkownicy[imie].ksiazki_czytelnika[tytul] = 0
+            return True
+        else:
+            return False
     else:
         return False
 
