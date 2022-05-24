@@ -44,8 +44,8 @@ def wypozycz_ksiazke(imie, tytul):
             return False
 
 def oddaj_ksiazke(imie, tytul):
-    if uzytkownicy[imie].ksiazki_czytelnika[tytul]:
-        if uzytkownicy[imie].ksiazki_czytelnika[tytul] > 0:
+    if bool(uzytkownicy):
+        if uzytkownicy[imie].ksiazki_czytelnika[tytul] >0:
             biblioteka[tytul].ilosc += 1
             uzytkownicy[imie].ksiazki_czytelnika[tytul] = 0
             return True
